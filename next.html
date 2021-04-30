@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <script>
+      if (localStorage.theme === 'dark' || (!'theme' in localStorage && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.querySelector('html').classList.add('dark')
+      } else if (localStorage.theme === 'dark') {
+          document.querySelector('html').classList.add('dark')
+      }
+  </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-900"> 
+    
+    <nav class="bg-white shadow dark:bg-gray-800">
+      <div x-data="{open: false}" class="container px-6 py-3 mx-auto">
+          <div class="md:flex md:items-center md:justify-between">
+              <div class="flex items-center justify-between">
+                  <div class="text-xl font-semibold text-gray-700">
+                      <a class="text-xl font-bold text-gray-800 dark:text-green-300 md:text-2xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Mazin's</a>
+                  </div>
+
+                  <!-- Mobile menu button -->
+                  <div class="flex md:hidden">
+                      <button type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" @click="open = true" aria-label="toggle menu">
+                          <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                              <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+                          </svg>
+                      </button>
+                  </div>
+              </div>
+
+              <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+              <div  :class="open ? 'show' : 'hidden'"
+              @click.away="open = false" class="flex-1 md:flex md:items-center md:justify-between">
+                  <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
+                      <a href="#" class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700">Home</a>
+                  </div>
+
+                  <div class="flex items-center mt-4 md:mt-0">
+                      <button id="switch" class=" mx-4 text-gray-600 md:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none" aria-label="Color Theme">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                      </button>
+
+                      <button type="button" class="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
+                          <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
+                              <img src="/src/assets/me.jfif" class="object-cover w-full h-full" alt="avatar">
+                          </div>
+
+                          <h3 class="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden">Mazin Hafiz</h3>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </nav>
+  <script>
+    document.getElementById('switch').addEventListener('click', function() {
+        let htmlClasses = document.querySelector('html').classList;
+        if(localStorage.theme == 'dark') {
+            htmlClasses.remove('dark');
+            localStorage.removeItem('theme')
+        } else {
+            htmlClasses.add('dark');
+            localStorage.theme = 'dark';
+        }
+    });
+</script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
